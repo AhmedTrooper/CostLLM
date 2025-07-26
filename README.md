@@ -1,4 +1,4 @@
-# 🎆 TokenTeller
+# 🎆 CostLLM
 
 ✅ **Cross-platform LLM pricing viewer** — shows **1M token** prices for popular models using [OpenRouter.ai](https://openrouter.ai).  
 🧨 Built with **Tauri v2**, **React**, **TypeScript**, **HeroUI**, `@tauri-apps/plugin-http`, and `@tauri-apps/plugin-dialog`.
