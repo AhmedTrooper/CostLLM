@@ -1,106 +1,27 @@
-import { Card, CardHeader, CardBody } from "@heroui/react";
-import { Link } from "react-router-dom";
+import { useLLMStore } from "@/store/LLMStore";
+import { Card, CardHeader } from "@heroui/card";
+import { number } from "framer-motion";
 
 export default function Home() {
+  const llmInfo = useLLMStore((state) => state.llmInfo);
+  if (!llmInfo) {
+    return <div className="p-8">Loading...</div>;
+  }
   return (
-    <div className="p-8">
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
+    <div className="p-8 grid justify-items-center justify-center">
+      {llmInfo.map((llm) => (
+        <Card
+          key={llm.id}
+          className="mb-4 w-full max-w-[70vw] sm:max-w-[80vw] p-2 sm:p-4"
+        >
+          <CardHeader>
+            <h2 className="text-xl font-bold">{llm.name}</h2>
+          </CardHeader>
+          <p className="text-gray-700">
+            {parseFloat(llm.pricing.prompt) * 1000000}$ / million tokens
           </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
-
-      <Card className="max-w-xl mx-auto shadow-lg">
-        <CardHeader>
-          <h2 className="text-2xl font-semibold">Welcome Home</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-base leading-relaxed">
-            This is the home page of your Tauri + React + HeroUI application.
-            Use the menu above to navigate to different sections.
-          </p>
-        </CardBody>
-      </Card>
-
-      <Link to="settings">Settings</Link>
+        </Card>
+      ))}
     </div>
   );
 }

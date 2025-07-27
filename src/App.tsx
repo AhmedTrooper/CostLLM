@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import useOsInfoStore from "./store/OsInfoStore";
 import MenuBar from "./components/menuBar/MenuBar";
 import useThemeStore from "./store/ThemeStore";
 import ContextMenuComponent from "./components/contextMenu/ContextMenuComponent";
 import { useContextMenuStore } from "./store/ContextMenuStore";
 import { useApplicationStore } from "./store/ApplicationStore";
 import clsx from "clsx";
+import { useLLMStore } from "./store/LLMStore";
+import useOsInfoStore from "./store/OsInfoStore";
+import { use } from "framer-motion/client";
 
 function App() {
   const dark = useThemeStore((state) => state.dark);
@@ -28,6 +30,8 @@ function App() {
   const checkApplicationUpdate = useApplicationStore(
     (state) => state.checkApplicationUpdate
   );
+  const fetchLLMInfo = useLLMStore((state) => state.fetchLLMInfo);
+  const fetchLLmComplete = useLLMStore((state) => state.fetchLLmComplete);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -39,6 +43,12 @@ function App() {
       detectOS();
     }
   }, [osFetched]);
+
+  useEffect(() => {
+    if (!fetchLLmComplete) {
+      fetchLLMInfo();
+    }
+  }, [fetchLLmComplete, fetchLLMInfo]);
 
   useEffect(() => {
     if (dark) {
